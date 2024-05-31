@@ -1,9 +1,10 @@
 Rev Log
 
 * ( ) 01 --> 02
-** ( ) add macros for del on bspc and esc on enter
+** (x) add macros for del on bspc and esc on enter
    - see qmk mods example... it should go in keymap.c
-** ( ) add macros for del on bspc and esc on enter
+
+* ( ) 02 --> 03
 ** ( ) add macro to turn off caps when I go to default layer
 ** (?) test one shot number layer button
    - could add shift + layer button to toggle instead of oneshot

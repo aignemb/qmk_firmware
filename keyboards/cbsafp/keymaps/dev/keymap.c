@@ -10,44 +10,15 @@
 		_FN,
 	};
 
-// sft + bspc --> del
-// init var holding binary representation of mod states
-uint8_t mod_state;
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    //store current mod state for later use
-    mod_state = get_mods();
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+const key_override_t escape_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_ENT, KC_ESC);
 
-    switch(keycode) {
-    case KC_BSPC:
-        {
-            // init var that keeps track of delete key status
-            static bool delkey_registered;
-            if(record->event.pressed) {
-                //detect if either shift is pressed
-                if(mod_state & MOD_MASK_SHIFT) {
-                    //first disable both shifts
-                    del_mods(MOD_MASK_SHIFT);
-                    register_code(KC_DEL);
-                    //update state of bool del
-                    delkey_registered = true;
-                    set_mods(mod_state);
-                    return false;
-                }
-            }
-            else { //on release of bspc
-                //in case bspc still being pressed
-                if(delkey_registered) {
-                    unregister_code(KC_DEL);
-                    delkey_registered = false;
-                    return false;
-                }
-            }
-            //let qmk handle bspc outise of shift
-            return true;
-        }
-    }
-    return true;
-}
+// define all overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]) {
+    &delete_key_override,
+    &escape_key_override,
+    NULL //null terminate the array of overrides
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
@@ -68,9 +39,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_BASE] = LAYOUT(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_CAPS,
-        KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_RSFT,
-        KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                               KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RCTL,
-                 KC_BSPC, KC_ENT,  TO(_NUM),KC_LGUI, KC_LALT,                            KC_RALT, TO(_NP),TO(_BASE),KC_SPC,  OSM(MOD_RSFT)
+        OSM(KC_LSFT), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, OSM(KC_RSFT),
+        OSM(KC_LCTL), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, OSM(KC_RCTL),
+                 KC_BSPC, KC_ENT,  TO(_NUM),KC_LGUI, KC_LALT,                            KC_RALT, TO(_FN),TO(_BASE),KC_SPC,  OSM(MOD_RSFT)
     ),
 	[_NUM] = LAYOUT(
 	_______,_______,_______,_______,_______,_______,                                 _______,_______,_______,_______,_______,_______,
