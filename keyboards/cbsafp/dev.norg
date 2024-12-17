@@ -1,0 +1,45 @@
+Rev Log
+
+* (x) 01 --> 02
+** (x) add macros for del on bspc and esc on enter
+   - see qmk mods example... it should go in keymap.c
+
+* (x) 02 --> hold 01
+** (x) add macro to turn off all mods when I go to default layer
+** (x) added caps word
+** (x) added custom trackable caps lock macro
+** (x) add home row mods to num layer
+** (x) redefine pinky keys
+** (x) figure out how to do ctl alt delete
+
+* (x) hold -> 03
+** (x) big keymap overhaul
+*** (x) check out mouse movements for nav layer
+*** (x) try to fit all symbols so they are no more then two presses away (layer
+*** (x) shifted num layer button goes toggle else it goes one tap
+**** (x) use one shot layer -> explained in one shot keys page
+**** (x) use key override
+**** (x) use custom key
+**** (x) disable one shot layer in base layer macro
+     - these did not work so I just did a one shot layer and enabled tap toggle
+
+* ( ) 03 --> 04
+
+* ( ) pending
+** ( ) create full layer for navigation and common shortcuts
+** ( ) replace number row with cool functions
+** ( ) caps word on double shift
+   - see how I like this
+** ( ) check out key lock to toggle next key pressed
+** (?) might need custom tap hold for keys that are not working
+** (_) add alt mods for left and right versions of ctl and shift
+   - would need smt for left and right alt as well
+   - not needed now that I have home row mods
+** (_) shif num to reach nav layer using macro custom key
+** (_) ctl num layer goes to navigation
+** (x) test one shot number layer button
+   - could add shift + layer button to toggle instead of oneshot
+   - maybe this would not be nice since it would make me have to think about what I want before I do it instead of just having the same motion every time... I can test both
+
+* notes
+  - seems like MT with plus and ampersand do not work
